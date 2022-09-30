@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Initializes the DevOps server.
+instanceLaunchWaitInterval=75
+
+if ssh opc@secure.us.hyperspire.net -t '/usr/bin/env bash -c "curl -LSs https://objectstorage.us-ashburn-1.oraclecloud.com/p/7NZrvQr9qp4NClauXM_BuKgW_EZxiu1AcjFPSl8uHHiqM_zHCN51U6JkeBv3qEpu/n/hyperspirefndn/b/hyperstor/o/devops-init.sh | sh"'; then
+  echo "DevOps server was initialized successfully."
+  sleep "${instanceLaunchWaitInterval}"
+  if ssh secure.us.hyperspire.net -t '/usr/bin/env bash -c "install-neovim"'; then
+    echo "Neovim was installed successfully."
+  else
+    echo "Neo was not installed."
+  fi
+  if ssh secure.us.hyperspire.net -t '/usr/bin/env bash -c "sudo systemctl enable containers.service"'; then
+    echo "Containers service was enabled successfully."
+  else
+    echo "Containers service was not enabled."
+  fi
+  if ssh secure.us.hyperspire.net -t '/usr/bin/env bash -c "sudo systemctl poweroff"'; then
+    echo "DevOps server was shutdown successfully."
+  else
+    echo "DevOps server did not shutdown."
+  fi
+  exit 0
+else
+  echo "DevOps server was not initialized."
+  exit 1
+fi
