@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ls ~/hyperstor/valheim-release/*; then
+  rm -vf ~/hyperstor/valheim-release/* 2> /dev/null
+fi
+
+if cd ~/Projects/valheim-release; then
+  ./predeploy.sh && rm -vf valheim-server.zip 2> /dev/null
+fi
+
