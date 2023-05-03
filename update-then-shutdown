@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+rpm-ostree update --check
+rpm-ostree update
+sudo systemctl poweroff
