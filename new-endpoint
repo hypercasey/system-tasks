@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+echo '{ status: "SUCCESS", message: "🖥  Terminating remote endpoint" }'
+
+if sudo systemctl stop devopsctl.service; then
+  echo '{ status: "SUCCESS", message: "🖥  Remote endpoint terminated" }'
+else
+  echo '{ status: "SUCCESS", message: "🖥  Remote endpoint failed to terminate" }'
+fi
+
+echo '{ status: "SUCCESS", message: "🖥  Provisioning new endpoint" }'
+
+if sudo systemctl start devopsctl.service; then
+  echo '{ status: "SUCCESS", message: "🖥  Remote endpoint provisioned" }'
+else
+  echo '{ status: "SUCCESS", message: "🖥  Remote endpoint failed to provision" }'
+fi
