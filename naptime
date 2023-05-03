@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# naptime stops a service, suspends or hibernates the system, and starts the service when the system resumes.
+function naptime {
+  echo '{ status: "SUCCESS", message: "🥱 Entering hibernation" }'
+  if sudo systemctl stop devopsctl.service; then
+    echo '{ status: "SUCCESS", message: "🖥  Remote endpoint terminated" }'
+  fi
+  # sudo systemctl hibernate
+  # sudo systemctl suspend-then-hibernate
+  sudo systemctl suspend
+  return $?
+}
+
+function wakeup {
+  echo '{ status: "SUCCESS", message: "🥱 Leaving hibernation" }'
+  if sudo systemctl start devopsctl.service; then
+    echo '{ status: "SUCCESS", message: "🖥  Remote endpoint provisioned" }'
+  fi
+  return $?
+}
+
+if ! naptime; then
+  echo '{ status: "ERROR", message: "⚠️  Naptime interrupted '$?'" }'
+  exit 1
+else
+  sleep 10
+fi
+
+if ! wakeup; then
+  echo '{ status: "ERROR", message: "⚠️  Failed to provision remote endpoint '$?'" }'
+  exit 1
+else
+  exit 0
+fi
