@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# alias rm="trash"
+[[ $* ]] || exit 0
+mv -vbf $* ~/.local/share/Trash/files/ || exit 1
