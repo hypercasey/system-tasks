@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+timeStamp=$(date '+%Y-%d-%m')
+ARCHIVE="${HOME}/Backup/Projects/Archive/"
+tar cJ "$*" -f ${ARCHIVE}"$*"-$timeStamp.tar.xz
+cp -f ${ARCHIVE}"$*"-$timeStamp.tar.xz ${HOME}/HackBerry/Projects/Archive/"$*"-$timeStamp.tar.xz
+cp -f ${ARCHIVE}"$*"-$timeStamp.tar.xz ${HOME}/hyperstor/Projects/Archive/"$*"-$timeStamp.tar.xz
