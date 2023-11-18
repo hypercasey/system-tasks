@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 # alias rm="trash"
-[[ $* ]] || exit 0
-mv -vbf "${@}" ~/.local/share/Trash/files/ || exit 1
+[[ $* == "-r" || $* == "-rf" || $* == "-fr" ]] && rm -rfv "${@:2}"
+[[ $* == "" || $* != "-r" || $* != "-rf" || $* != "-fr" ]] && if mv -vbf "${@}" ~/.local/share/Trash/files/"$(date '+%Y-%d-%m')-$(uuidgen | tail -c 13)_${@}"; then exit 0; fi
